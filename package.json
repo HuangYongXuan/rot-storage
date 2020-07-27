@@ -1,0 +1,42 @@
+{
+  "name": "rot-storage",
+  "version": "1.0.0",
+  "description": "rot storage",
+  "main": "src/index.ts",
+  "scripts": {
+    "build": "webpack --config webpack.config.js --mode production",
+    "grunt:build": "grunt build --force"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HuangYongXuan/rot-storage.git"
+  },
+  "keywords": [
+    "storage",
+    "store"
+  ],
+  "author": "754060604@qq.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/HuangYongXuan/rot-storage/issues"
+  },
+  "homepage": "https://github.com/HuangYongXuan/rot-storage#readme",
+  "devDependencies": {
+    "@babel/plugin-transform-regenerator": "^7.10.4",
+    "@babel/plugin-transform-runtime": "^7.10.5",
+    "@types/node": "^14.0.26",
+    "babel-loader": "^8.1.0",
+    "babel-polyfill": "^6.26.0",
+    "clean-webpack-plugin": "^3.0.0",
+    "grunt": "^1.2.1",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-uglify": "^5.0.0",
+    "grunt-ts": "^6.0.0-beta.22",
+    "html-webpack-plugin": "^4.3.0",
+    "load-grunt-tasks": "^5.1.0",
+    "ts-loader": "^8.0.1",
+    "typescript": "^3.9.7",
+    "webpack": "^4.44.0",
+    "webpack-cli": "^3.3.12"
+  }
+}

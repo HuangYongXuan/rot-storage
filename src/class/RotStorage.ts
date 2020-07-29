@@ -24,6 +24,9 @@ export default class RotStorage {
 	 */
 	get(key: string) {
 		let json = this.config.drive.get(key)
+		if (!json) {
+			return undefined;
+		}
 		if (json instanceof Promise) {
 			return json.then(res => {
 				if (res.expire !== 0 && res.expire < new Date().getTime()) {

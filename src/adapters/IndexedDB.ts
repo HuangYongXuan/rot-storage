@@ -4,23 +4,35 @@ export class IndexedDB implements RotStorageDrive {
 	protected DB: IDBDatabase;
 	protected ObjectStore: IDBObjectStore;
 	protected tableName: string
+	protected request: IDBOpenDBRequest
 
+	// @ts-ignore
 	constructor(databaseName: string, tableName: string) {
 		this.tableName = tableName;
-		let request = indexedDB.open(databaseName, 9527);
-		request.onsuccess = () => {
-			this.DB = request.result;
-		}
+		this.request = indexedDB.open(databaseName, 100);
+	}
 
-		request.onupgradeneeded = (event) => {
-			this.DB = event.target["result"];
-			if (this.DB.objectStoreNames.contains(tableName) === false) {
-				this.ObjectStore = this.DB.createObjectStore(tableName, {keyPath: 'key'})
-				this.ObjectStore.createIndex('key', 'key', {unique: true});
-				this.ObjectStore.createIndex('expire', 'expire', {unique: false});
-				this.ObjectStore.createIndex('data', 'data', {unique: false});
+	async init() {
+		await new Promise(((resolve, reject) => {
+			this.request.onsuccess = () => {
+				this.DB = this.request.result;
+				resolve();
 			}
-		}
+
+			this.request.onupgradeneeded = (event) => {
+				this.DB = event.target["result"];
+				if (this.DB.objectStoreNames.contains(this.tableName) === false) {
+					this.ObjectStore = this.DB.createObjectStore(this.tableName, {keyPath: 'key'})
+					this.ObjectStore.createIndex('key', 'key', {unique: true});
+					this.ObjectStore.createIndex('expire', 'expire', {unique: false});
+					this.ObjectStore.createIndex('data', 'data', {unique: false});
+				}
+				resolve();
+			}
+			this.request.onerror = (err) => {
+				reject(err)
+			}
+		}))
 	}
 
 	clear(): any {
@@ -29,6 +41,7 @@ export class IndexedDB implements RotStorageDrive {
 
 	// @ts-ignore
 	async get(key: string): any {
+		if (!this.DB) await this.init()
 		return await this.getItem(key)
 	}
 
@@ -42,6 +55,7 @@ export class IndexedDB implements RotStorageDrive {
 
 	// @ts-ignore
 	protected async getItem(key: string): any {
+		if (!this.DB) await this.init()
 		let transaction = this.DB.transaction([this.tableName], 'readonly');
 		let objectStore = transaction.objectStore(this.tableName);
 		let request = objectStore.get(key);

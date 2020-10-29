@@ -1,6 +1,6 @@
 {
   "name": "rot-storage",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "rot storage",
   "main": "src/Main.ts",
   "scripts": {
@@ -38,5 +38,8 @@
     "typescript": "^3.9.7",
     "webpack": "^4.44.0",
     "webpack-cli": "^3.3.12"
+  },
+  "dependencies": {
+    "localforage": "^1.9.0"
   }
 }

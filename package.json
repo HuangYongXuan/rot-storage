@@ -1,6 +1,6 @@
 {
   "name": "rot-storage",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "rot storage",
   "main": "src/Main.ts",
   "scripts": {

@@ -1,8 +1,9 @@
 {
   "name": "rot-storage",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "rot storage",
-  "main": "src/Main.ts",
+  "main": "dist/rot-storage.js",
+  "typings": "src/Main.ts",
   "scripts": {
     "build": "webpack --config webpack.config.js --mode production",
     "grunt:build": "grunt build --force"
